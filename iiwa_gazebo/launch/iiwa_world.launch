@@ -11,7 +11,10 @@
     <arg name="debug" default="false"/>
     <arg name="hardware_interface" default="PositionJointInterface"/>
     <arg name="robot_name" default="iiwa" />
-    <arg name="model" default="iiwa7"/>
+    <arg name="model" default="iiwa14"/>
+
+    <!-- Republish joint states on general topic, so that MoveIt sees it -->
+    <node name="relay" pkg="topic_tools" type="relay" args="/$(arg robot_name)/joint_states joint_states" output="screen"/>
     
     <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
@@ -34,5 +37,5 @@
           args="-urdf -model iiwa -param robot_description"/>
     
     
-    </launch>
+  </launch>
     
