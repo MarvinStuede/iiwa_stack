@@ -21,8 +21,8 @@
  * THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#pragma once
-
+#ifndef IIWA_ROS_CONVERSIONS_H
+#define IIWA_ROS_CONVERSIONS_H
 #include <iiwa_msgs/JointQuantity.h>
 #include <iiwa_msgs/CartesianQuantity.h>
 
@@ -59,7 +59,7 @@ namespace iiwa_ros {
    * @param a7
    * @return iiwa_msgs::JointQuantity
    */
-  iiwa_msgs::JointQuantity jointQuantityFromDouble(const double a1, const double a2, const double a3, const double a4, const double a5, const double a6, const double a7) {
+  inline iiwa_msgs::JointQuantity jointQuantityFromDouble(const double a1, const double a2, const double a3, const double a4, const double a5, const double a6, const double a7) {
     iiwa_msgs::JointQuantity quantity;
     quantity.a1 = a1;
     quantity.a2 = a2;
@@ -77,7 +77,7 @@ namespace iiwa_ros {
    * @param value the value to use for all the CartesianQuantity components.
    * @return iiwa_msgs::CartesianQuantity
    */
-  iiwa_msgs::CartesianQuantity CartesianQuantityFromDouble(const double value) {
+  inline iiwa_msgs::CartesianQuantity CartesianQuantityFromDouble(const double value) {
     iiwa_msgs::CartesianQuantity quantity;
     quantity.x = value;
     quantity.y = value;
@@ -99,7 +99,7 @@ namespace iiwa_ros {
    * @param c 
    * @return iiwa_msgs::CartesianQuantity
    */
-  iiwa_msgs::CartesianQuantity CartesianQuantityFromDouble(const double x, const double y, const double z, const double a, const double b, const double c) {
+  inline iiwa_msgs::CartesianQuantity CartesianQuantityFromDouble(const double x, const double y, const double z, const double a, const double b, const double c) {
     iiwa_msgs::CartesianQuantity quantity;
     quantity.x = x;
     quantity.y = y;
@@ -117,7 +117,7 @@ namespace iiwa_ros {
    * @param rotation_value value to use for all the rotational components (a,b,c) of the CartesianQuantity
    * @return iiwa_msgs::CartesianQuantity
    */
-  iiwa_msgs::CartesianQuantity CartesianQuantityFromDouble(const double translation_value, const double rotation_value) {
+  inline iiwa_msgs::CartesianQuantity CartesianQuantityFromDouble(const double translation_value, const double rotation_value) {
     iiwa_msgs::CartesianQuantity quantity;
     quantity.x = translation_value;
     quantity.y = translation_value;
@@ -128,3 +128,4 @@ namespace iiwa_ros {
     return quantity;
   }
 }
+#endif

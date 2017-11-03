@@ -30,7 +30,9 @@
 #include <iiwa_msgs/JointVelocity.h>
 #include <iiwa_msgs/JointPositionVelocity.h>
 #include <iiwa_msgs/JointDamping.h>
+#include <iiwa_msgs/CartesianRedundancePose.h>
 #include <std_msgs//Time.h>
+#include <std_msgs/Bool.h>
 #include <geometry_msgs/WrenchStamped.h>
 #include <geometry_msgs/PoseStamped.h>
 #include <smart_servo_service.h>
@@ -146,9 +148,17 @@ namespace iiwa_ros {
     /**
      * @brief Initializes the necessary topics for state and command methods.
      * 
+     * @param ns the nodes namespace
      * @return void
      */
-    void init();
+    void init(std::string ns = "/iiwa");
+
+    /**
+     * @brief Returns true if the current motion is finished
+     *
+     * @return bool
+     */
+    bool isMotionFinished();
     
     /**
      * @brief Returns true is a new Cartesian pose of the robot is available.
@@ -157,6 +167,14 @@ namespace iiwa_ros {
      * @return bool
      */
     bool getCartesianPose(geometry_msgs::PoseStamped& value);
+
+    /**
+     * @brief Returns true is a new Cartesian pose of the robot is available.
+     *
+     * @param value the current Cartesian RedundancePose of the robot.
+     * @return bool
+     */
+    bool getCartesianRedundancePose(iiwa_msgs::CartesianRedundancePose& value);
     
     /**
      * @brief Returns true is a new Joint position of the robot is available.
@@ -242,6 +260,14 @@ namespace iiwa_ros {
      * @return void
      */
     void setCartesianPose(const geometry_msgs::PoseStamped& position);
+
+    /**
+     * @brief Set the cartesian pose of the robot with redundance information.
+     *
+     * @param position the cartesian pose to set the robot.
+     * @return void
+     */
+    void setCartesianRedundancePose(const iiwa_msgs::CartesianRedundancePose& pose);
     
     /**
      * @brief Set the joint position of the robot.
@@ -272,8 +298,10 @@ namespace iiwa_ros {
      */
     bool getRobotIsConnected();
     
-  private:
+  protected:
     iiwaStateHolder<geometry_msgs::PoseStamped> holder_state_pose_;
+    iiwaStateHolder<iiwa_msgs::CartesianRedundancePose> holder_state_redundance_pose_;
+    iiwaStateHolder<std_msgs::Bool> holder_state_motion_finished;
     iiwaStateHolder<iiwa_msgs::JointPosition> holder_state_joint_position_;
     iiwaStateHolder<iiwa_msgs::JointTorque> holder_state_joint_torque_;
     iiwaStateHolder<geometry_msgs::WrenchStamped> holder_state_wrench_;
@@ -284,6 +312,7 @@ namespace iiwa_ros {
     iiwaStateHolder<std_msgs::Time> holder_state_destination_reached_;
     
     iiwaCommandHolder<geometry_msgs::PoseStamped> holder_command_pose_;
+    iiwaCommandHolder<iiwa_msgs::CartesianRedundancePose> holder_command_redundance_pose_;
     iiwaCommandHolder<iiwa_msgs::JointPosition> holder_command_joint_position_;
     iiwaCommandHolder<iiwa_msgs::JointVelocity> holder_command_joint_velocity_;
     iiwaCommandHolder<iiwa_msgs::JointPositionVelocity> holder_command_joint_position_velocity_;
