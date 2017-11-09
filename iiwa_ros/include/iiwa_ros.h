@@ -38,6 +38,7 @@
 #include <smart_servo_service.h>
 #include <path_parameters_service.h>
 #include <time_to_destination_service.h>
+#include <stop_movement_service.h>
 #include <ros/ros.h>
 
 #include <string>
@@ -251,7 +252,14 @@ namespace iiwa_ros {
      * 
      * @return iiwa_ros::TimeToDestinationService
      */
-    TimeToDestinationService getTimeToDestinationService() { return time_to_destination_service_; };
+    TimeToDestinationService getTimeToDestinationService() { return time_to_destination_service_; }
+
+    /**
+     * @brief Returns the object that allows to call the stopMovement service.
+     *
+     * @return iiwa_ros::StopMovementService
+     */
+    StopMovementService getStopMovementService(){return stop_movement_service_;}
     
     /**
      * @brief Set the cartesian pose of the robot.
@@ -320,6 +328,7 @@ namespace iiwa_ros {
     SmartServoService smart_servo_service_;
     PathParametersService path_parameters_service_;
     TimeToDestinationService time_to_destination_service_;
+    StopMovementService stop_movement_service_;
   };
   
 }
