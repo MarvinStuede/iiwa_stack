@@ -69,12 +69,13 @@ namespace iiwa_ros {
   void SmartServoService::initCartesianImpedanceMode(const iiwa_msgs::CartesianQuantity& cartesian_stiffness, const iiwa_msgs::CartesianQuantity& cartesian_damping, 
                                                      const double nullspace_stiffness, const double nullspace_damping, const iiwa_msgs::CartesianQuantity& max_path_deviation, 
                                                      const iiwa_msgs::CartesianQuantity& max_cartesian_velocity, const iiwa_msgs::CartesianQuantity& max_control_force, 
-                                                     const bool max_control_force_stop) {
+                                                     const bool max_control_force_stop, const iiwa_msgs::CartesianQuantity& additional_force) {
     config_.request.control_mode = iiwa_msgs::ControlMode::CARTESIAN_IMPEDANCE;
     config_.request.cartesian_impedance.cartesian_stiffness = cartesian_stiffness;
     config_.request.cartesian_impedance.cartesian_damping = cartesian_damping;
     config_.request.cartesian_impedance.nullspace_stiffness = nullspace_stiffness;
     config_.request.cartesian_impedance.nullspace_damping = nullspace_damping;
+    config_.request.cartesian_impedance.additional_force = additional_force;
     initCartesianLimits(max_path_deviation, max_cartesian_velocity, max_control_force, max_control_force_stop);
   }
   
@@ -114,26 +115,26 @@ namespace iiwa_ros {
     setJointImpedanceMode(jointQuantityFromDouble(joint_stiffnes), jointQuantityFromDouble(joint_damping));
   }	
   
-  bool SmartServoService::setCartesianImpedanceMode(const iiwa_msgs::CartesianQuantity& cartesian_stiffness, const iiwa_msgs::CartesianQuantity& cartesian_damping, 
-                                                    const double nullspace_stiffness, const double nullspace_damping, const iiwa_msgs::CartesianQuantity& max_path_deviation, 
-                                                    const iiwa_msgs::CartesianQuantity& max_cartesian_velocity, const iiwa_msgs::CartesianQuantity& max_control_force, const bool max_control_force_stop) {
-    initCartesianImpedanceMode(cartesian_stiffness, cartesian_damping, nullspace_stiffness, nullspace_damping, max_path_deviation, max_cartesian_velocity,max_control_force, max_control_force_stop);
+  bool SmartServoService::setCartesianImpedanceMode(const iiwa_msgs::CartesianQuantity& cartesian_stiffness, const iiwa_msgs::CartesianQuantity& cartesian_damping,
+                                                    const double nullspace_stiffness, const double nullspace_damping, const iiwa_msgs::CartesianQuantity& max_path_deviation,
+                                                    const iiwa_msgs::CartesianQuantity& max_cartesian_velocity, const iiwa_msgs::CartesianQuantity& max_control_force, const bool max_control_force_stop, const iiwa_msgs::CartesianQuantity &additional_force) {
+    initCartesianImpedanceMode(cartesian_stiffness, cartesian_damping, nullspace_stiffness, nullspace_damping, max_path_deviation, max_cartesian_velocity,max_control_force, max_control_force_stop, additional_force);
     return callService();
   }
   
   bool SmartServoService::setCartesianImpedanceMode(const iiwa_msgs::CartesianQuantity& cartesian_stiffness, const iiwa_msgs::CartesianQuantity& cartesian_damping, 
                                                     const double nullspace_stiffness, const double nullspace_damping) {
-    setCartesianImpedanceMode(cartesian_stiffness, cartesian_damping, nullspace_stiffness, nullspace_damping, CartesianQuantityFromDouble(-1), CartesianQuantityFromDouble(-1), CartesianQuantityFromDouble(-1), false);
+    setCartesianImpedanceMode(cartesian_stiffness, cartesian_damping, nullspace_stiffness, nullspace_damping, CartesianQuantityFromDouble(-1), CartesianQuantityFromDouble(-1), CartesianQuantityFromDouble(-1), false, CartesianQuantityFromDouble(0));
   }
   
   bool SmartServoService::setCartesianImpedanceMode(const iiwa_msgs::CartesianQuantity& cartesian_stiffness, const iiwa_msgs::CartesianQuantity& cartesian_damping) {
-    setCartesianImpedanceMode(cartesian_stiffness, cartesian_damping, -1, -1, CartesianQuantityFromDouble(-1), CartesianQuantityFromDouble(-1), CartesianQuantityFromDouble(-1), false);
+    setCartesianImpedanceMode(cartesian_stiffness, cartesian_damping, -1, -1, CartesianQuantityFromDouble(-1), CartesianQuantityFromDouble(-1), CartesianQuantityFromDouble(-1), false, CartesianQuantityFromDouble(0));
   }
   
   bool SmartServoService::setCartesianImpedanceMode(const iiwa_msgs::CartesianQuantity& cartesian_stiffness, const iiwa_msgs::CartesianQuantity& cartesian_damping, 
                                                     const iiwa_msgs::CartesianQuantity& max_path_deviation, const iiwa_msgs::CartesianQuantity& max_cartesian_velocity, 
-                                                    const iiwa_msgs::CartesianQuantity& max_control_force, const bool max_control_force_stop) {
-    setCartesianImpedanceMode(cartesian_stiffness, cartesian_damping, -1, -1, max_path_deviation, max_cartesian_velocity, max_control_force, max_control_force_stop);
+                                                    const iiwa_msgs::CartesianQuantity& max_control_force, const bool max_control_force_stop, const iiwa_msgs::CartesianQuantity &additional_force) {
+    setCartesianImpedanceMode(cartesian_stiffness, cartesian_damping, -1, -1, max_path_deviation, max_cartesian_velocity, max_control_force, max_control_force_stop,additional_force);
   }
   
   bool SmartServoService::setDesiredForceMode(const int cartesian_dof, const double desired_force, const double desired_stiffness, 

@@ -7,6 +7,9 @@ CartesianQuantity cartesian_stiffness
 # Precondition: 0.1 <= x, y, z, a, b, c <= 1.0. 
 CartesianQuantity cartesian_damping
 
+# Additional force for each DOF
+CartesianQuantity additional_force
+
 # The stiffness value for null space [Nm/rad]. 
 # Precondition: 0.0 <= value. 
 float64 nullspace_stiffness
