@@ -1,3 +1,5 @@
-float64 stop_timeout
+#This service allows to stop the robot
+
+float64 stop_timeout # Timeout after stop
 ---
 bool success

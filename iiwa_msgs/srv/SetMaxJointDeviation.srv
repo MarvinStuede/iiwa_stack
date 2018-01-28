@@ -1,0 +1,5 @@
+#Sets the maximum joint deviation for joint velocity commands
+
+float64 max_deviation
+---
+bool success

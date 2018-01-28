@@ -39,6 +39,7 @@
 #include <path_parameters_service.h>
 #include <time_to_destination_service.h>
 #include <stop_movement_service.h>
+#include <joint_deviation_service.h>
 #include <ros/ros.h>
 
 #include <string>
@@ -260,6 +261,11 @@ namespace iiwa_ros {
      * @return iiwa_ros::StopMovementService
      */
     StopMovementService getStopMovementService(){return stop_movement_service_;}
+    /**
+     * @brief Returns the object that allows to call the SetMaxJointDeviation service.
+     * @return iiwa_ros::SetMaxJointDeviation
+     */
+    JointDeviationService getJointDeviationService(){return joint_deviation_service_;}
     
     /**
      * @brief Set the cartesian pose of the robot.
@@ -329,6 +335,7 @@ namespace iiwa_ros {
     PathParametersService path_parameters_service_;
     TimeToDestinationService time_to_destination_service_;
     StopMovementService stop_movement_service_;
+    JointDeviationService joint_deviation_service_;
   };
   
 }

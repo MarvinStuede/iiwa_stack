@@ -25,6 +25,7 @@ add_library(${PROJECT_NAME}
 	src/path_parameters_service.cpp
 	src/time_to_destination_service.cpp
         src/stop_movement_service.cpp
+        src/joint_deviation_service.cpp
 )
 
 target_link_libraries(${PROJECT_NAME}

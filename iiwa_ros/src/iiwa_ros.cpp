@@ -58,6 +58,7 @@ void iiwaRos::init(std::string ns)
     path_parameters_service_.setServiceName(ns + "configuration/pathParameters");
     time_to_destination_service_.setServiceName(ns + "state/timeToDestination");
     stop_movement_service_.setServiceName(ns + "command/StopMovement");
+    joint_deviation_service_.setServiceName(ns + "command/SetMaxJointDeviation");
 }
 
 bool iiwaRos::getRobotIsConnected() {
